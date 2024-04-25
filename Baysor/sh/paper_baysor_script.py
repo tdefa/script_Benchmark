@@ -138,7 +138,7 @@ if __name__ == "__main__":
 
 
     #################
-    # COMPUTE IOU
+    # COMPUTE Jaccard Index
     #################
 
     #### dictionary with the ground_truth

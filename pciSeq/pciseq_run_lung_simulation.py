@@ -160,18 +160,6 @@ for path_to_simu in tqdm(list(Path(path_dico_simulation).glob("*.npy"))):
 
     df_spots_label_input = df_spots_label[['y', 'x', 'z_stack', 'Gene']].copy()
 
-    opts_3D = {'save_data': False,
-               'launch_diagnostics': False,
-               'launch_viewer': False,
-               'Inefficiency': 0.2,
-               'MisreadDensity': 1e-05,
-               'nu': 30,
-               'from_plane_num': 0,
-               'to_plane_num': 60,
-               'is_3D': False,
-               'nNeighbors': 3,
-               'CellCallTolerance': 0.02,
-               }
     cellData, geneData = pciSeq.fit(df_spots_label, mask_nuclei, df_scRNAseq)
 
     ### compute cell type calling accuracy
@@ -346,38 +334,3 @@ print(f'mean total_error_list {round(np.mean(total_error_list), 4)}')
 print((f'mean total_prc_not_catch_list  {round(np.mean(total_prc_not_catch_list), 4)}'))
 print(f'median total_error_list {round(np.median(total_error_list), 4)}')
 print((f'median total_prc_not_catch_list  {round(np.median(total_prc_not_catch_list), 4)}'))
-
-
-#%%
-scrna_unique_clusters = ['AM', 'AT1', 'AT2',
-                         'B_cells', 'Basophils', 'Ciliated',
-                         'Club', 'DC', 'EC',
-                         'Fibroblasts', 'IM', 'Mesotheliocytes',
-                         'Monocytes', 'NK_T_cells', 'NK_cells',
-                         'Neutrophils', 'Platelets', 'SMC',
-                         'T_cells']
-dico_f1_cell_type = {k: v for k, v in
-                         zip(scrna_unique_clusters, metrics.f1_score(total_y_true,
-                                                                         total_y_pred,
-                                                                         labels=scrna_unique_clusters,
-                                                                         average=None))}
-print(dico_f1_cell_type)
-
-
-
-
-"""
-final acc 0.6216
-mean list_iou2 0.3431
-final acc 0.6216
-final acc without no predicted 0.6413
-final acc cosine 0.6243
-final acc cosine int 0.6286
-mean list_iou2 0.3431
-median list_iou2 0.317
-mean aji 0.3497
-mean total_error_list 0.3701
-mean total_prc_not_catch_list  0.5375
-median total_error_list 0.25
-median total_prc_not_catch_list  0.5455
-"""

@@ -10,9 +10,8 @@ from utils.count_matrix_metrics import dist_to_centroid
 from comseg.dictionary import ComSegDict
 from pathlib import Path
 import numpy as np
-import comseg
 
-from utils.count_matrix_metrics import sctransform_from_parameters
+from utils.data_processing import sctransform_from_parameters
 
 
 def select_genes_for_sct(vec = None,

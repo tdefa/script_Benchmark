@@ -1,33 +1,27 @@
 
 
 
-import matplotlib
-#matplotlib.use('Qt5Agg')
-import sys
-sys.path += ["/home/tom/Bureau/phd/simulation/ComSeg_pkg/src"]
-
 
 
 import numpy as np
 import scanpy as sc
 import random
 import tifffile
-from comseg import dataset
-import importlib
-import comseg
-import comseg
-from comseg import model
-from comseg import dictionary
+
 import importlib
 
 from pathlib import Path
-from tqdm import tqdm
-from comseg.utils.preprocessing import sctransform_from_parameters
-importlib.reload(dataset)
 
 import argparse
 import datetime
 #importlib.reload(dataset)
+import comseg
+from comseg import model
+from comseg import dictionary
+from comseg import clustering
+import importlib
+from comseg import dataset
+
 
 if __name__ == '__main__':
 
@@ -106,16 +100,8 @@ if __name__ == '__main__':
         distance="pearson",
     )
 
-    import comseg
-    from comseg import model
-    from comseg import dictionary
-    from comseg import clustering
-    import importlib
 
-    importlib.reload(comseg)
-    importlib.reload(model)
-    importlib.reload(dictionary)
-    importlib.reload(clustering)
+
 
     Comsegdict = dictionary.ComSegDict(
         dataset=dataset_non_conv,

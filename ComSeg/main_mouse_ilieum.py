@@ -1,48 +1,58 @@
 
 
+import pickle
+from pathlib import Path
+import scanpy as sc
+import random
+import comseg
+from comseg import model
+from comseg import dictionary
+import importlib
+
+import matplotlib
+# matplotlib.use('Qt5Agg')
+import sys
+import os
+import psutil
+import pandas as pd
+
+import numpy as np
+import random
+import tifffile
+from comseg.dataset import ComSegDataset
+import comseg
+
+import importlib
+
+from pathlib import Path
+from tqdm import tqdm
+from comseg.utils.preprocessing import sctransform_from_parameters
+
+import argparse
+import datetime
+import scanpy as sc
+# importlib.reload(ComSegDataset)
+
+from sklearn.utils.random import sample_without_replacement
+from comseg.utils.preprocessing import run_sctransform
+import seaborn as sns
+
+import seaborn as sns
+from matplotlib import pyplot as plt
+import random
+from memory_profiler import profile
+import time
+
+
 
 
 
 if __name__ == '__main__':
 
-
-
-    import matplotlib
-    # matplotlib.use('Qt5Agg')
-    import sys
-    import os
-    import psutil
-    import pandas as pd
-
-    import numpy as np
-    import random
-    import tifffile
-    from comseg.dataset import ComSegDataset
-    import comseg
-
-    import importlib
-
-    from pathlib import Path
-    from tqdm import tqdm
-    from comseg.utils.preprocessing import sctransform_from_parameters
-
-    import argparse
-    import datetime
-    import scanpy as sc
-    # importlib.reload(ComSegDataset)
-
-    from sklearn.utils.random import sample_without_replacement
-    from comseg.utils.preprocessing import run_sctransform
-    import seaborn as sns
-
-    import seaborn as sns
-    from matplotlib import pyplot as plt
-    import random
-    from memory_profiler import profile
-    import time
     time_start = time.time()
+
     e = datetime.datetime.now()
-    print(e)
+
     date_str = f"{e.month}_d{e.day}_h{e.hour}_min{e.minute}_s{e.second}_r" + str(random.randint(0, 5000))
     parser = argparse.ArgumentParser(description='test')
     ###################
@@ -153,26 +163,6 @@ if __name__ == '__main__':
     corr_matrix = []
 
     np.save(Path(args.path_to_mask_prior) /'dict_co_expression_n40_50000.npy', dataset.dict_co_expression)
-    """
-    for gene0 in dataset.dict_co_expression:
-        list_corr_gene0 = []
-        for gene1 in dataset.dict_co_expression:
-            list_corr_gene0.append(dataset.dict_co_expression[gene0][gene1])
-        corr_matrix.append(list_corr_gene0)
-    list_gene = list(dataset.dict_co_expression.keys())
-    # plotting the heatmap for correlation
-    ax = sns.heatmap(corr_matrix, xticklabels=list_gene, yticklabels=list_gene, )
-
-    plt.show()
-    """
-    import comseg
-    from comseg import model
-    from comseg import dictionary
-    import importlib
-
-    importlib.reload(comseg)
-    importlib.reload(model)
-    importlib.reload(dictionary)
 
     Comsegdict = dictionary.ComSegDict(
         dataset=dataset,
@@ -211,8 +201,8 @@ if __name__ == '__main__':
     mem_info = process.memory_info()
     print(f"Memory usage: {mem_info.rss} bytes")
 
-    import scanpy as sc
-    import random
+
+
 
     palette = {}
     for i in range(-1, 500):
@@ -314,8 +304,6 @@ if __name__ == '__main__':
     print(f"CPU usage: {cpu_usage} percent")
     mem_info = process.memory_info()
     print(f"Memory usage: {mem_info.rss} bytes")
-    import pickle
-    from pathlib import Path
 
     filename = Path(args.path_save) / "result.h5ad"
     with open(filename, 'wb') as handle:

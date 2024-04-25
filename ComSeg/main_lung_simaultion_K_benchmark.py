@@ -137,7 +137,6 @@ if __name__ == '__main__':
         dataset=dataset_non_conv,
         mean_cell_diameter=mean_cell_diameter,
         community_detection="with_prior",
-        # weights_name="weight",
         prior_name="in_nucleus",
         seed=None,
     )

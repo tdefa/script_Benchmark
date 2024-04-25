@@ -1,32 +1,26 @@
 
 
 
-import matplotlib
-#matplotlib.use('Qt5Agg')
-import sys
 
 import pandas as pd
 
 import numpy as np
 import random
-import tifffile
 from comseg.dataset import ComSegDataset
 import comseg
 
-import importlib
 
 from pathlib import Path
-from tqdm import tqdm
-from comseg.utils.preprocessing import sctransform_from_parameters
+import scanpy as sc
+import random
+
+import comseg
+from comseg import model
+from comseg import dictionary
+import importlib
 
 import argparse
 import datetime
-import scanpy as sc
-#importlib.reload(ComSegDataset)
-
-from  sklearn.utils.random import  sample_without_replacement
-from comseg.utils.preprocessing import run_sctransform
-
 import seaborn as sns
 from matplotlib import pyplot as plt
 
@@ -150,14 +144,7 @@ if __name__ == '__main__':
 
     plt.show()
 
-    import comseg
-    from comseg import model
-    from comseg import dictionary
-    import importlib
 
-    importlib.reload(comseg)
-    importlib.reload(model)
-    importlib.reload(dictionary)
 
     Comsegdict = dictionary.ComSegDict(
         dataset=dataset,
@@ -201,8 +188,7 @@ if __name__ == '__main__':
         )
 
 
-    import scanpy as sc
-    import random
+
 
     palette = {}
     for i in range(-1, 500):

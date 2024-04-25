@@ -12,7 +12,6 @@ from pathlib import Path
 import numpy as np
 import comseg
 import scanpy
-from utils.count_matrix_metrics import sctransform_from_parameters
 
 
 def select_genes_for_sct(vec = None,

@@ -94,19 +94,6 @@ def compute_AJI(image_gr_cm,
     return C_image / U_image, C_image, U_image, dico_cell_pred_rna, max_iou_list, dico_m2b_index_match
 
 
-def erase_too_small(masks, too_small = 1000, background = 0):
-    nuclei_list, count = np.unique(masks,  return_counts=True)
-    nb_cell  = 0
-    for nuc_index in tqdm(list(range(len(nuclei_list)))):
-        nuc = nuclei_list[nuc_index]
-        if nuc == background:
-            continue
-        if count[nuc_index] < too_small:
-            masks[masks == nuc] = background
-            nb_cell += 1
-    return masks
-
-
 
 
 def compute_perf(pred_df,
@@ -152,14 +139,7 @@ if __name__ == "__local__" :
 
     ##########
 
-    cell_seg  = tifffile.imread("/media/tom/Transcend1/doi_10_5061_dryad_jm63xsjb2__v20210916/data_release_baysor_merfish_gut/mask_for_metrics/cellpose_membrane_min_size15_190324.tif")
-    cell_seg_mip = np.amax(cell_seg, axis=0)
-    tifffile.imwrite(f"/media/tom/Transcend1/doi_10_5061_dryad_jm63xsjb2__v20210916/data_release_baysor_merfish_gut/mask_for_metrics/cellpose_membrane_min_size15_190324_mip.tif",
-    cell_seg_mip.astype(np.uint16))
-    cell_seg_z4 = cell_seg[4]
-    tifffile.imwrite(f"/media/tom/Transcend1/doi_10_5061_dryad_jm63xsjb2__v20210916/data_release_baysor_merfish_gut/mask_for_metrics/cellpose_membrane_min_size15_190324_z4.tif",
-                     cell_seg_z4.astype(np.uint16))
-
+    cell_seg  = tifffile.imread("/media/tom/Transcend1/doi_10_5061_dryad_jm63xsjb2__v20210916/data_release_baysor_merfish_gut/mask_for_metrics/cellpose_membrane_min.tif")
     list_unique_cell = list(np.unique(cell_seg))
     df_input = pd.read_csv("/media/tom/Transcend1/doi_10_5061_dryad_jm63xsjb2__v20210916/input_comseg/df/mouse1.csv")
 
@@ -183,16 +163,7 @@ if __name__ == "__local__" :
 
     dict_res = {}
 
-    unique_cell_with_rna = list(np.unique(cell_seg))
-    cell_seg[~np.isin(cell_seg, unique_cell_with_rna)] = 0
-    tifffile.imwrite("/media/tom/Transcend1/doi_10_5061_dryad_jm63xsjb2__v20210916/data_release_baysor_merfish_gut/mask_for_metrics/consistant5_test_all_z_cell_withrna.tif",
-                     cell_seg.astype(np.uint16))
-    unique_cell_with_rna_after = list(np.unique(cell_seg))
 
-
-    cell_seg_mip = np.amax(cell_seg, axis=0)
-    tifffile.imwrite("/media/tom/Transcend1/doi_10_5061_dryad_jm63xsjb2__v20210916/data_release_baysor_merfish_gut/mask_for_metrics/consistant5_test_all_z_cell_withrna_mip.tif",
-                     cell_seg_mip.astype(np.uint16))
 
     #### comseg test
     df_input = pd.read_csv("/media/tom/Transcend1/doi_10_5061_dryad_jm63xsjb2__v20210916/input_comseg/df/mouse1.csv")
@@ -312,9 +283,6 @@ if __name__ == "__local__" :
 
 
     ### scs
-    #pred_df = pd.read_csv(
-    #    "/media/tom/Transcend1/doi_10_5061_dryad_jm63xsjb2__v20210916/scs/df_pred__e300.csv")
-    #model_name = "scs_e300"
 
 
     pred_df = pd.read_csv(

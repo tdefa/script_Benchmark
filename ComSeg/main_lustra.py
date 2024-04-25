@@ -1,30 +1,22 @@
 
 
 
-import matplotlib
-#matplotlib.use('Qt5Agg')
-import sys
-sys.path += ["/home/tom/Bureau/phd/simulation/ComSeg_pkg/src"]
-
-
-
 import numpy as np
-import scanpy as sc
 import random
-import tifffile
 from comseg import dataset
-import importlib
+
 import comseg
+
+from pathlib import Path
 import comseg
 from comseg import model
 from comseg import dictionary
+from comseg import clustering
 import importlib
-
-from pathlib import Path
-from tqdm import tqdm
-from comseg.utils.preprocessing import sctransform_from_parameters
-importlib.reload(dataset)
-
+import seaborn as sns
+from matplotlib import pyplot as plt
+import scanpy as sc
+import random
 import argparse
 import datetime
 #importlib.reload(dataset)
@@ -112,8 +104,7 @@ if __name__ == '__main__':
         images_subset=None,
         distance="pearson",
     )
-    import seaborn as sns
-    from matplotlib import pyplot as plt
+
 
     corr_matrix = []
 
@@ -128,16 +119,8 @@ if __name__ == '__main__':
     plt.title("Correlation matrix of the dataset")
     plt.show()
     # corr_matrix_false = np.array(corr_matrix).copy()
-    import comseg
-    from comseg import model
-    from comseg import dictionary
-    from comseg import clustering
-    import importlib
 
-    importlib.reload(comseg)
-    importlib.reload(model)
-    importlib.reload(dictionary)
-    importlib.reload(clustering)
+
 
     Comsegdict = dictionary.ComSegDict(
         dataset=dataset_non_conv,
@@ -163,8 +146,7 @@ if __name__ == '__main__':
         nb_min_cluster=4,
     )
 
-    import scanpy as sc
-    import random
+
 
     palette = {}
     for i in range(-1, 500):
